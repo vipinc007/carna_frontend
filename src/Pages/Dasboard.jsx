@@ -20,7 +20,7 @@ function Home(props) {
               </p>
               <button
                 className="btn btn-primary btn-sm"
-                onClick={() => history.replace("/gms/dashboard")}
+                onClick={() => history.replace("/user/manage")}
               >
                 Explore
               </button>

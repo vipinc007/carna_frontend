@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import ServiceWrapper from "../../Services/ServiceWrapper";
 import AppSettings from "../../Settings/AppSettings";
-import { AppContext } from "../../Context/AppContext";
 import { UserContext } from "./UserContext";
 
 function AddEditUser() {
-  const appData = useContext(AppContext);
   const Usercontextdata = useContext(UserContext);
   var [loadError, setLoadError] = React.useState(false);
   var [heading, setHeading] = React.useState("");
@@ -34,8 +32,8 @@ function AddEditUser() {
     let ret = await ServiceWrapper.doGet(api_base_url + "user/list/" + id);
     setLoadError(ret.errorfound);
     if (!ret.errorfound) {
-      setuserDetail(ret.data.result.data);
-      setuserDetailCopy(ret.data.result.data);
+      setuserDetail(ret.data.data);
+      setuserDetailCopy(ret.data.data);
     }
     setLoading(false);
   }
@@ -57,20 +55,17 @@ function AddEditUser() {
 
   async function save_changes() {
     setsavingInfo(null);
-    let saveype = "";
-    if (Usercontextdata.editingUserID > 0) {
-      saveype = "/" + Usercontextdata.editingUserID;
-    }
 
     let api_base_url = AppSettings.BACKEND_API_URL;
     let res = await ServiceWrapper.doPost(
-      api_base_url + "user/save" + saveype,
+      api_base_url + "user/save/" + Usercontextdata.editingUserID,
       userDetail,
       null,
       null
     );
     if (!res.errorfound) {
       if (res.data.done) {
+        setuserDetailCopy((n) => userDetail);
         setsavingInfo({
           done: true,
           message: res.data.message,
@@ -116,9 +111,7 @@ function AddEditUser() {
           )}
 
           <div className="">
-            <label for="formGroupExampleInput" className="form-label">
-              Email
-            </label>
+            <label className="form-label">Email</label>
             <input
               type="text"
               className="form-control"
@@ -130,9 +123,7 @@ function AddEditUser() {
             />
           </div>
           <div className="mb-3">
-            <label for="formGroupExampleInput2" className="form-label">
-              Name
-            </label>
+            <label className="form-label">Name</label>
             <input
               type="text"
               className="form-control"
@@ -144,9 +135,7 @@ function AddEditUser() {
             />
           </div>
           <div className="mb-3">
-            <label for="formGroupExampleInput2" className="form-label">
-              Country
-            </label>
+            <label className="form-label">Country</label>
             <input
               type="text"
               className="form-control"

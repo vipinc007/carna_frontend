@@ -27,9 +27,9 @@ function Home(props) {
             </div>
           </div>
         </div>
-        <div className="col-sm-4">
+        {/* <div className="col-sm-4">
           <div className="card border-dark mb-3">
-            {/* <div className="card-header">Products</div> */}
+            <div className="card-header">Products</div>
             <div className="card-body text-dark">
               <h5 className="card-title">Courses</h5>
               <p className="card-text">
@@ -44,7 +44,7 @@ function Home(props) {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </React.Fragment>
   );
